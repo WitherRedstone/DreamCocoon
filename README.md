@@ -1,4 +1,4 @@
-# 梦境包裹(Dream Cocoon) 功能分类文档
+# 睡梦包裹(Dream Cocoon) 功能分类文档
 
 [English](#english) | [中文](#中文)
 
@@ -26,9 +26,8 @@ Each night you sleep, you accumulate consecutive days and receive reward bags of
 - **Anti-Cheat Mechanism**: Detects time command modifications and automatically resets abnormal records
 - **Data Persistence**: Sleep progress is saved in world data, survives game restarts
 
-### Highly Configurable
+### JSON Loot Configuration
 
-#### JSON Loot Configuration
 - Configuration location: `config/dream_cocoon/`
 - Three separate files:
     - `goodie_bag.json` - Goodie Bag loot table
@@ -38,14 +37,6 @@ Each night you sleep, you accumulate consecutive days and receive reward bags of
 - **Weight System**: Control drop probability through weight values
 - **Quantity Range**: Support setting minimum and maximum drop quantities
 - **Item Components**: Supports item component syntax
-
-#### TOML General Configuration
-- Configuration location: `config/dream_cocoon-common.toml`
-- Configurable options:
-    - Number of items per bag opening
-    - Quality boost threshold (consecutive days to trigger high-quality rewards)
-    - Maximum consecutive days threshold
-    - Drop probability for each bag quality (percentage-based)
 
 ---
 
@@ -58,7 +49,7 @@ Each night you sleep, you accumulate consecutive days and receive reward bags of
 
 ## 模组简介
 
-梦境包裹是一个睡眠奖励模组，鼓励玩家保持连续睡觉习惯。
+睡梦包裹是一个睡眠奖励模组，鼓励玩家保持连续睡觉习惯。
 每晚睡觉都会累积连续天数，根据天数发放不同品质的奖励包裹（好梦包、甜梦包、美梦包）。
 
 ## 配置说明
@@ -75,9 +66,8 @@ Each night you sleep, you accumulate consecutive days and receive reward bags of
 - **数据持久化**：睡觉进度保存在世界存档中，重启不丢失
 - **防作弊机制**：使用 `/day set` 或 `/time set` 命令修改时间会自动重置连续记录
 
-### 高度可配置
+### JSON 掉落配置
 
-#### JSON 掉落配置
 - 配置文件位置：`config/dream_cocoon/`
 - 支持三个独立文件：
     - `goodie_bag.json` - 好梦包掉落列表
@@ -87,14 +77,6 @@ Each night you sleep, you accumulate consecutive days and receive reward bags of
 - **权重系统**：通过权重值控制物品掉落概率
 - **数量范围**：支持设置最小和最大掉落数量
 - **物品组件**：支持物品组件语法
-
-#### TOML 通用配置
-- 配置文件位置：`config/dream_cocoon-common.toml`
-- 可配置项：
-    - 各包裹的开包物品数量
-    - 品质提升阈值（连续多少天触发高品质奖励）
-    - 最大连续天数阈值
-    - 各品质包裹的掉落概率（百分制）
 
 ---
 
