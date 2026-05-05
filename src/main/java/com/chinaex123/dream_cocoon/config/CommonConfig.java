@@ -81,7 +81,6 @@ public class CommonConfig {
                 .defineInRange("maxStreakThreshold", 15, 0, 100);
         builder.pop();
 
-
         builder.pop();
 
         SPEC = builder.build();
