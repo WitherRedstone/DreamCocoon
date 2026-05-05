@@ -1,0 +1,32 @@
+{
+  "itemGroup.dream_cocoon": "睡梦包裹",
+
+  "item.dream_cocoon.goodie_bag": "好梦包",
+  "item.dream_cocoon.sweet_bag": "甜梦包",
+  "item.dream_cocoon.dream_bag": "美梦包",
+
+  "dream_cocoon.configuration.CommonConfig": "通用配置",
+  "dream_cocoon.configuration.SleepRewardProbability": "睡觉奖励概率",
+  "dream_cocoon.configuration.goodieBagChance": "好梦包概率",
+  "dream_cocoon.configuration.sweetBagChance": "甜梦包概率",
+  "dream_cocoon.configuration.dreamBagChance": "美梦包概率",
+  "dream_cocoon.configuration.BoostedRewardProbability": "品质提升后概率",
+  "dream_cocoon.configuration.boostedGoodieBagChance": "品质提升后好梦包概率",
+  "dream_cocoon.configuration.boostedSweetBagChance": "品质提升后甜梦包概率",
+  "dream_cocoon.configuration.boostedDreamBagChance": "品质提升后美梦包概率",
+  "dream_cocoon.configuration.SleepRewardAmount": "睡觉奖励数量",
+  "dream_cocoon.configuration.goodieBagAmount": "好梦包数量",
+  "dream_cocoon.configuration.sweetBagAmount": "甜梦包数量",
+  "dream_cocoon.configuration.dreamBagAmount": "美梦包数量",
+  "dream_cocoon.configuration.BagLootAmount": "开包物品数量",
+  "dream_cocoon.configuration.goodieBagLootAmount": "好梦包开出数量",
+  "dream_cocoon.configuration.sweetBagLootAmount": "甜梦包开出数量",
+  "dream_cocoon.configuration.dreamBagLootAmount": "美梦包开出数量",
+  "dream_cocoon.configuration.StreakSettings": "连续睡觉设置",
+  "dream_cocoon.configuration.qualityBoostThreshold": "品质提升天数阈值",
+  "dream_cocoon.configuration.maxStreakThreshold": "必得美梦包天数阈值",
+
+  "dream_cocoon.streak": "§7连续睡觉: §e%d§7 天",
+  "dream_cocoon.streak.boosted": "§6 连续睡觉: §e%d§6 天! 品质提升!",
+  "dream_cocoon.streak.reset": "§c 连续睡觉已中断!"
+}

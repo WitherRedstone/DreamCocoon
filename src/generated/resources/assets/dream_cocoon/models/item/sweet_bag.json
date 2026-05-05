@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "dream_cocoon:item/sweet_bag"
+  }
+}
