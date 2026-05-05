@@ -1,0 +1,32 @@
+{
+  "itemGroup.dream_cocoon": "Dream Cocoon",
+
+  "item.dream_cocoon.goodie_bag": "Goodie Bag",
+  "item.dream_cocoon.sweet_bag": "Sweet Bag",
+  "item.dream_cocoon.dream_bag": "Dream Bag",
+
+  "dream_cocoon.configuration.CommonConfig": "Common Config",
+  "dream_cocoon.configuration.SleepRewardProbability": "Sleep Reward Probability",
+  "dream_cocoon.configuration.goodieBagChance": "Goodie Bag Chance",
+  "dream_cocoon.configuration.sweetBagChance": "Sweet Bag Chance",
+  "dream_cocoon.configuration.dreamBagChance": "Dream Bag Chance",
+  "dream_cocoon.configuration.BoostedRewardProbability": "Boosted Reward Probability",
+  "dream_cocoon.configuration.boostedGoodieBagChance": "Boosted Goodie Bag Chance",
+  "dream_cocoon.configuration.boostedSweetBagChance": "Boosted Sweet Bag Chance",
+  "dream_cocoon.configuration.boostedDreamBagChance": "Boosted Dream Bag Chance",
+  "dream_cocoon.configuration.SleepRewardAmount": "Sleep Reward Amount",
+  "dream_cocoon.configuration.goodieBagAmount": "Goodie Bag Amount",
+  "dream_cocoon.configuration.sweetBagAmount": "Sweet Bag Amount",
+  "dream_cocoon.configuration.dreamBagAmount": "Dream Bag Amount",
+  "dream_cocoon.configuration.BagLootAmount": "Bag Loot Amount",
+  "dream_cocoon.configuration.goodieBagLootAmount": "Goodie Bag Loot Amount",
+  "dream_cocoon.configuration.sweetBagLootAmount": "Sweet Bag Loot Amount",
+  "dream_cocoon.configuration.dreamBagLootAmount": "Dream Bag Loot Amount",
+  "dream_cocoon.configuration.StreakSettings": "Streak Settings",
+  "dream_cocoon.configuration.qualityBoostThreshold": "Quality Boost Threshold",
+  "dream_cocoon.configuration.maxStreakThreshold": "Guaranteed Dream Bag Threshold",
+
+  "dream_cocoon.streak": "§7Consecutive Sleep: §e%d§7 days",
+  "dream_cocoon.streak.boosted": "§6 Consecutive Sleep: §e%d§6 days! Quality Boosted!",
+  "dream_cocoon.streak.reset": "§c Consecutive sleep streak broken!"
+}
