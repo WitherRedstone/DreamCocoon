@@ -39,6 +39,11 @@ public class PlayerWakeEvent {
             return;
         }
 
+        // 判断是否是完整睡眠
+        if (!player.isSleepingLongEnough()) {
+            return;
+        }
+
         // 记录玩家本次睡觉行为，更新连续睡觉数据
         SleepStreakTracker.recordSleep(player);
 
