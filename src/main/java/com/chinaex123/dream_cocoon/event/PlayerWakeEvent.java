@@ -39,8 +39,30 @@ public class PlayerWakeEvent {
             return;
         }
 
-        // 判断是否是完整睡眠
-        if (!player.isSleepingLongEnough()) {
+        // 获取服务端世界层级
+        ServerLevel level = (ServerLevel) player.level();
+
+        // 获取当前世界天数和当天时刻
+        long gameTime = level.getGameTime();
+        long currentDay = gameTime / 24000;
+        long dayTime = gameTime % 24000;
+
+        // 判断是否成功跳过夜晚：
+        // 1. 玩家在夜晚入睡（不是白天午睡）
+        // 2. 醒来时是清晨（表示夜晚被成功跳过）
+        // 清晨定义为游戏刻 0-1000（日出时段）
+        boolean nightWasSkipped = dayTime < 1000 && wasSleepingAtNight(player);
+
+        if (!nightWasSkipped) {
+            return;
+        }
+
+        // 获取玩家数据，检查今日是否已领取过奖励
+        SleepStreakSavedData data = SleepStreakSavedData.get(level);
+        SleepStreakSavedData.PlayerSleepData playerData = data.getPlayerData(player.getUUID());
+
+        // 如果今日已领取过奖励，则不再发放
+        if (playerData.getLastSleepDay() == currentDay) {
             return;
         }
 
@@ -61,6 +83,22 @@ public class PlayerWakeEvent {
 
         // 向玩家发送连续睡觉天数的提示消息
         sendStreakMessage(player, currentStreak);
+    }
+
+    /**
+     * 判断玩家是否在夜晚入睡
+     * <p>
+     * 通过检查玩家的睡眠计时器来判断是否在夜晚开始睡觉
+     * 玩家入睡时会设置 sleepTimer，醒来时会重置为 0
+     *
+     * @param player 玩家对象
+     * @return 是否在夜晚入睡
+     */
+    private static boolean wasSleepingAtNight(Player player) {
+        // 获取玩家的睡眠计时器（tickCount）
+        // 当玩家在床上时，这个值会被设置
+        // 如果值大于0，说明玩家刚才确实在床上睡觉
+        return player.getSleepTimer() > 0;
     }
 
     /**
