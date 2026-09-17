@@ -8,17 +8,17 @@ public class CommonConfig {
 
     public static final ModConfigSpec SPEC;
 
-    public static final ModConfigSpec.IntValue DREAM_BAG_CHANCE;
-    public static final ModConfigSpec.IntValue SWEET_BAG_CHANCE;
-    public static final ModConfigSpec.IntValue GOODIE_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue DREAM_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue SWEET_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue GOODIE_BAG_CHANCE;
 
     public static final ModConfigSpec.IntValue DREAM_BAG_AMOUNT;
     public static final ModConfigSpec.IntValue SWEET_BAG_AMOUNT;
     public static final ModConfigSpec.IntValue GOODIE_BAG_AMOUNT;
 
-    public static final ModConfigSpec.IntValue BOOSTED_DREAM_BAG_CHANCE;
-    public static final ModConfigSpec.IntValue BOOSTED_SWEET_BAG_CHANCE;
-    public static final ModConfigSpec.IntValue BOOSTED_GOODIE_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue BOOSTED_DREAM_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue BOOSTED_SWEET_BAG_CHANCE;
+    public static final ModConfigSpec.DoubleValue BOOSTED_GOODIE_BAG_CHANCE;
 
     public static final ModConfigSpec.IntValue DREAM_BAG_LOOT_AMOUNT;
     public static final ModConfigSpec.IntValue SWEET_BAG_LOOT_AMOUNT;
@@ -31,56 +31,70 @@ public class CommonConfig {
     static {
         ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
 
-        builder.push("CommonConfig");
+        builder.comment("好梦包").push("Goodie Bag");
+        GOODIE_BAG_CHANCE = builder
+                .comment("获得好梦包的概率")
+                .comment("Probability of receiving Goodie Bag when boosted")
+                .defineInRange("goodieBagChance", 0.7, 0.0, 1.0);
+        GOODIE_BAG_AMOUNT = builder
+                .comment("获得好梦包的数量")
+                .comment("Amount of Goodie Bag received")
+                .defineInRange("goodieBagAmount", 1, 1, Integer.MAX_VALUE);
+        BOOSTED_GOODIE_BAG_CHANCE = builder
+                .comment("品质提升后给予好梦包的概率")
+                .comment("Chance to grant a Goodie Bag bundle after quality upgrade")
+                .defineInRange("boostedGoodieBagChance", 0.3, 0.0, 1.0);
+        GOODIE_BAG_LOOT_AMOUNT = builder
+                .comment("好梦包开出物品的数量")
+                .comment("Number of items obtained from the Goodie Bag bundle")
+                .defineInRange("goodieBagLootAmount", 1, 1, Integer.MAX_VALUE);
 
-        builder.comment("Probability settings for bags received after sleeping (0-100, total should be 100)")
-                .push("SleepRewardProbability");
-        GOODIE_BAG_CHANCE = builder.comment("Probability of receiving Goodie Bag")
-                .defineInRange("goodieBagChance", 70, 0, 100);
-        SWEET_BAG_CHANCE = builder.comment("Probability of receiving Sweet Bag")
-                .defineInRange("sweetBagChance", 25, 0, 100);
-        DREAM_BAG_CHANCE = builder.comment("Probability of receiving Dream Bag")
-                .defineInRange("dreamBagChance", 5, 0, 100);
+        builder.comment("甜梦包").push("Sweet Bag");
+        SWEET_BAG_CHANCE = builder
+                .comment("获得甜梦包的概率")
+                .comment("Probability of receiving Sweet Bag when boosted")
+                .defineInRange("sweetBagChance", 0.25, 0.0, 1.0);
+        SWEET_BAG_AMOUNT = builder
+                .comment("获得甜梦包的数量")
+                .comment("Amount of Sweet Bag received")
+                .defineInRange("sweetBagAmount", 1, 1, Integer.MAX_VALUE);
+        BOOSTED_SWEET_BAG_CHANCE = builder
+                .comment("品质提升后给予甜梦包的概率")
+                .comment("Chance to grant a Sweet Bag bundle after quality upgrade")
+                .defineInRange("boostedSweetBagChance", 0.65, 0.0, 1.0);
+        SWEET_BAG_LOOT_AMOUNT = builder
+                .comment("甜梦包开出物品的数量")
+                .comment("Number of items obtained from the Sweet Bag bundle")
+                .defineInRange("sweetBagLootAmount", 1, 1, Integer.MAX_VALUE);
+
+        builder.comment("美梦包").push("Dream Bag");
+        DREAM_BAG_CHANCE = builder
+                .comment("获得美梦包的概率")
+                .comment("Probability of receiving Dream Bag when boosted")
+                .defineInRange("dreamBagChance", 0.05, 0.0, 1.0);
+        DREAM_BAG_AMOUNT = builder
+                .comment("获得美梦包的数量")
+                .comment("Amount of Dream Bag received")
+                .defineInRange("dreamBagAmount", 1, 1, Integer.MAX_VALUE);
+        BOOSTED_DREAM_BAG_CHANCE = builder
+                .comment("品质提升后给予美梦包的概率")
+                .comment("Chance to grant a Dream Bag bundle after quality upgrade")
+                .defineInRange("boostedDreamBagChance", 0.05, 0.0, 1.0);
+        DREAM_BAG_LOOT_AMOUNT = builder
+                .comment("美梦包开出物品的数量")
+                .comment("Number of items obtained from the Dream Bag bundle")
+                .defineInRange("dreamBagLootAmount", 1, 1, Integer.MAX_VALUE);
         builder.pop();
 
-        builder.comment("Amount of bags received after sleeping")
-                .push("SleepRewardAmount");
-        GOODIE_BAG_AMOUNT = builder.comment("Amount of Goodie Bag received")
-                .defineInRange("goodieBagAmount", 1, 1, 64);
-        SWEET_BAG_AMOUNT = builder.comment("Amount of Sweet Bag received")
-                .defineInRange("sweetBagAmount", 1, 1, 64);
-        DREAM_BAG_AMOUNT = builder.comment("Amount of Dream Bag received")
-                .defineInRange("dreamBagAmount", 1, 1, 64);
-        builder.pop();
-
-        builder.comment("Probability settings when quality is boosted")
-                .push("BoostedRewardProbability");
-        BOOSTED_GOODIE_BAG_CHANCE = builder.comment("Probability of receiving Goodie Bag when boosted")
-                .defineInRange("boostedGoodieBagChance", 30, 0, 100);
-        BOOSTED_SWEET_BAG_CHANCE = builder.comment("Probability of receiving Sweet Bag when boosted")
-                .defineInRange("boostedSweetBagChance", 65, 0, 100);
-        BOOSTED_DREAM_BAG_CHANCE = builder.comment("Probability of receiving Dream Bag when boosted")
-                .defineInRange("boostedDreamBagChance", 5, 0, 100);
-        builder.pop();
-
-        builder.comment("Amount of items received from opening bags")
-                .push("BagLootAmount");
-        GOODIE_BAG_LOOT_AMOUNT = builder.comment("Amount of items received from Goodie Bag")
-                .defineInRange("goodieBagLootAmount", 1, 1, 64);
-        SWEET_BAG_LOOT_AMOUNT = builder.comment("Amount of items received from Sweet Bag")
-                .defineInRange("sweetBagLootAmount", 1, 1, 64);
-        DREAM_BAG_LOOT_AMOUNT = builder.comment("Amount of items received from Dream Bag")
-                .defineInRange("dreamBagLootAmount", 1, 1, 64);
-        builder.pop();
-
-        builder.comment("Streak settings")
-                .push("StreakSettings");
-        QUALITY_BOOST_THRESHOLD = builder.comment("Days of consecutive sleep to trigger quality boost")
-                .defineInRange("qualityBoostThreshold", 5, 1, 100);
-        MAX_STREAK_THRESHOLD = builder.comment("Days of consecutive sleep to guarantee Dream Bag (0 to disable)")
-                .defineInRange("maxStreakThreshold", 15, 0, 100);
-        builder.pop();
-
+        builder.comment("连续睡觉配置").push("Continuous sleeping configuration");
+        QUALITY_BOOST_THRESHOLD = builder
+                .comment("品质提升的天数阈值")
+                .comment("Quality upgrade day threshold")
+                .defineInRange("qualityBoostThreshold", 5, 1, Integer.MAX_VALUE);
+        MAX_STREAK_THRESHOLD = builder
+                .comment("必得美梦包的天数阈值")
+                .comment("Guaranteed Sweet Dreams bundle day threshold")
+                .defineInRange("maxStreakThreshold", 15, 0, Integer.MAX_VALUE);
         builder.pop();
 
         SPEC = builder.build();

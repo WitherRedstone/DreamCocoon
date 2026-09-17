@@ -21,9 +21,9 @@ public class ModCreativeTabs {
                     .title(Component.translatable("itemGroup.dream_cocoon"))
                     .displayItems((parameters, output) -> {
 
-                        output.accept(ModItems.GOODIE_BAG.get()); // 好梦包
-                        output.accept(ModItems.SWEET_BAG.get()); // 甜梦包
-                        output.accept(ModItems.DREAM_BAG.get()); // 美梦包
+                        output.accept(ModItems.GOODIE_BAG.get());
+                        output.accept(ModItems.SWEET_BAG.get());
+                        output.accept(ModItems.DREAM_BAG.get());
 
                     })
                     .build());
