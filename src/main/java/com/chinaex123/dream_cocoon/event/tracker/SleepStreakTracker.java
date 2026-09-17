@@ -49,8 +49,8 @@ public class SleepStreakTracker {
         ServerLevel level = (ServerLevel) player.level();
         // 获取连续睡觉数据存储对象
         SleepStreakSavedData data = SleepStreakSavedData.get(level);
-        // 计算当前世界天数（游戏刻 / 24000）
-        long currentDay = player.level().getGameTime() / 24000;
+        // 使用时钟累计刻数计算世界天数（时钟在跳夜时会快进）
+        long currentDay = ((ServerLevel) player.level()).getDefaultClockTime() / 24000;
 
         // 记录玩家在当前天数的睡觉行为
         data.recordSleep(player.getUUID(), currentDay);
@@ -91,8 +91,9 @@ public class SleepStreakTracker {
 
         // 获取服务端世界层级对象
         ServerLevel level = (ServerLevel) event.getLevel();
-        // 计算当前在一天中的具体时刻（0-23999）
-        long dayTime = level.getGameTime() % 24000;
+        // 使用时钟累计刻数计算当天时刻和世界天数
+        long clockTime = level.getDefaultClockTime();
+        long dayTime = clockTime % 24000;
 
         // 仅在世界天的起始时刻（第 0 刻）执行检查逻辑
         if (dayTime != 0) {
@@ -102,7 +103,7 @@ public class SleepStreakTracker {
         // 获取连续睡觉数据存储对象
         SleepStreakSavedData data = SleepStreakSavedData.get(level);
         // 计算当前的世界总天数
-        long currentDay = level.getGameTime() / 24000;
+        long currentDay = clockTime / 24000;
 
         // 遍历世界中的所有在线玩家进行检查
         level.players().forEach(player -> {

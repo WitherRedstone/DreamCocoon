@@ -10,20 +10,20 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-public class ModCreativeTabs {
+public class DCICreativeTabs {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TAB =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, DreamCocoon.MOD_ID);
 
 
     public static final Supplier<CreativeModeTab> DREAM_COCOON_TAB =
             CREATIVE_MODE_TAB.register("dream_cocoon_tab", () -> CreativeModeTab.builder()
-                    .icon(() -> new ItemStack(ModItems.DREAM_BAG.get()))
+                    .icon(() -> new ItemStack(DCItems.DREAM_BAG.get()))
                     .title(Component.translatable("itemGroup.dream_cocoon"))
                     .displayItems((parameters, output) -> {
 
-                        output.accept(ModItems.GOODIE_BAG.get());
-                        output.accept(ModItems.SWEET_BAG.get());
-                        output.accept(ModItems.DREAM_BAG.get());
+                        output.accept(DCItems.GOODIE_BAG.get());
+                        output.accept(DCItems.SWEET_BAG.get());
+                        output.accept(DCItems.DREAM_BAG.get());
 
                     })
                     .build());

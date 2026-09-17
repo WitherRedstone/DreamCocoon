@@ -2,9 +2,7 @@ package com.chinaex123.dream_cocoon.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-import java.util.List;
-
-public class CommonConfig {
+public class DCIServerConfig {
 
     public static final ModConfigSpec SPEC;
 

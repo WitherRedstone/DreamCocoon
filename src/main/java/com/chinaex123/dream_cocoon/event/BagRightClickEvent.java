@@ -1,11 +1,10 @@
 package com.chinaex123.dream_cocoon.event;
 
 import com.chinaex123.dream_cocoon.DreamCocoon;
-import com.chinaex123.dream_cocoon.config.CommonConfig;
+import com.chinaex123.dream_cocoon.config.DCIServerConfig;
 import com.chinaex123.dream_cocoon.config.LootConfigLoader;
-import com.chinaex123.dream_cocoon.init.ModItems;
+import com.chinaex123.dream_cocoon.init.DCItems;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.TagParser;
 import net.minecraft.resources.Identifier;
@@ -49,11 +48,11 @@ public class BagRightClickEvent {
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
 
-        if (item == ModItems.DREAM_BAG.get()) {
+        if (item == DCItems.DREAM_BAG.get()) {
             handleBagUse(event, "dream_bag", stack);
-        } else if (item == ModItems.SWEET_BAG.get()) {
+        } else if (item == DCItems.SWEET_BAG.get()) {
             handleBagUse(event, "sweet_bag", stack);
-        } else if (item == ModItems.GOODIE_BAG.get()) {
+        } else if (item == DCItems.GOODIE_BAG.get()) {
             handleBagUse(event, "goodie_bag", stack);
         }
     }
@@ -92,25 +91,28 @@ public class BagRightClickEvent {
         // 根据包裹类型获取本次开包的物品数量
         int lootAmount = getLootAmount(bagStack.getItem());
 
+        // 潜行右键：一次性拆完所有包裹
+        // 普通右键：只拆一个包裹
+        int bagCount = player.isShiftKeyDown() ? bagStack.getCount() : 1;
+
         // 循环发放指定数量的奖励物品
-        for (int i = 0; i < lootAmount; i++) {
-            // 按权重随机选择一个掉落项
-            LootConfigLoader.LootEntry selectedEntry = selectWeightedEntry(lootList);
+        for (int bag = 0; bag < bagCount; bag++) {
+            for (int i = 0; i < lootAmount; i++) {
+                LootConfigLoader.LootEntry selectedEntry = selectWeightedEntry(lootList);
 
-            if (selectedEntry != null) {
-                // 解析掉落项为实际的物品堆叠（支持组件）
-                ItemStack rewardStack = parseItemStack(selectedEntry, level.registryAccess());
+                if (selectedEntry != null) {
+                    ItemStack rewardStack = parseItemStack(selectedEntry, level.registryAccess());
 
-                // 将奖励物品添加到玩家背包
-                if (!rewardStack.isEmpty()) {
-                    player.getInventory().add(rewardStack);
+                    if (!rewardStack.isEmpty()) {
+                        player.getInventory().add(rewardStack);
+                    }
                 }
             }
         }
 
-        // 非创造模式下消耗一个包裹物品
+        // 非创造模式下消耗包裹物品
         if (!player.isCreative()) {
-            bagStack.shrink(1);
+            bagStack.shrink(bagCount);
         }
 
         // 播放开包音效
@@ -243,14 +245,14 @@ public class BagRightClickEvent {
      */
     private static int getLootAmount(Item bagItem) {
         // 美梦包的奖励数量
-        if (bagItem == ModItems.DREAM_BAG.get()) {
-            return CommonConfig.DREAM_BAG_LOOT_AMOUNT.get();
-        } else if (bagItem == ModItems.SWEET_BAG.get()) {
+        if (bagItem == DCItems.DREAM_BAG.get()) {
+            return DCIServerConfig.DREAM_BAG_LOOT_AMOUNT.get();
+        } else if (bagItem == DCItems.SWEET_BAG.get()) {
             // 甜梦包的奖励数量
-            return CommonConfig.SWEET_BAG_LOOT_AMOUNT.get();
-        } else if (bagItem == ModItems.GOODIE_BAG.get()) {
+            return DCIServerConfig.SWEET_BAG_LOOT_AMOUNT.get();
+        } else if (bagItem == DCItems.GOODIE_BAG.get()) {
             // 好梦包的奖励数量
-            return CommonConfig.GOODIE_BAG_LOOT_AMOUNT.get();
+            return DCIServerConfig.GOODIE_BAG_LOOT_AMOUNT.get();
         }
         // 未知类型默认返回 1
         return 1;

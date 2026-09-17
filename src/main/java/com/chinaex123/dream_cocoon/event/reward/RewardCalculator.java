@@ -1,7 +1,7 @@
 package com.chinaex123.dream_cocoon.event.reward;
 
-import com.chinaex123.dream_cocoon.config.CommonConfig;
-import com.chinaex123.dream_cocoon.init.ModItems;
+import com.chinaex123.dream_cocoon.config.DCIServerConfig;
+import com.chinaex123.dream_cocoon.init.DCItems;
 import net.minecraft.world.item.Item;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -32,15 +32,15 @@ public class RewardCalculator {
      */
     public static RewardData calculateReward(int currentStreak) {
         // 获取配置的最大连续天数阈值
-        int maxStreak = CommonConfig.MAX_STREAK_THRESHOLD.get();
+        int maxStreak = DCIServerConfig.MAX_STREAK_THRESHOLD.get();
 
         // 如果达到最大阈值，直接返回最高品质奖励（美梦包）
         if (maxStreak > 0 && currentStreak >= maxStreak) {
-            return new RewardData(ModItems.DREAM_BAG.get(), CommonConfig.DREAM_BAG_AMOUNT.get());
+            return new RewardData(DCItems.DREAM_BAG.get(), DCIServerConfig.DREAM_BAG_AMOUNT.get());
         }
 
         // 获取品质提升所需的连续天数阈值
-        int qualityBoostThreshold = CommonConfig.QUALITY_BOOST_THRESHOLD.get();
+        int qualityBoostThreshold = DCIServerConfig.QUALITY_BOOST_THRESHOLD.get();
         // 判断当前连续天数是否已触发品质提升
         boolean isQualityBoosted = currentStreak >= qualityBoostThreshold;
 
@@ -84,19 +84,19 @@ public class RewardCalculator {
      */
     private static RewardData calculateBoostedReward(double chance) {
         // 获取配置的美梦包掉落概率
-        double dreamChance = CommonConfig.BOOSTED_DREAM_BAG_CHANCE.get();
+        double dreamChance = DCIServerConfig.BOOSTED_DREAM_BAG_CHANCE.get();
         // 获取配置的甜梦包掉落概率
-        double sweetChance = CommonConfig.BOOSTED_SWEET_BAG_CHANCE.get();
+        double sweetChance = DCIServerConfig.BOOSTED_SWEET_BAG_CHANCE.get();
 
         // 如果随机数落在美梦包区间，返回双倍美梦包
         if (chance < dreamChance) {
-            return new RewardData(ModItems.DREAM_BAG.get(), CommonConfig.DREAM_BAG_AMOUNT.get() * 2);
+            return new RewardData(DCItems.DREAM_BAG.get(), DCIServerConfig.DREAM_BAG_AMOUNT.get() * 2);
         } else if (chance < dreamChance + sweetChance) {
             // 如果随机数落在甜梦包区间，返回双倍甜梦包
-            return new RewardData(ModItems.SWEET_BAG.get(), CommonConfig.SWEET_BAG_AMOUNT.get() * 2);
+            return new RewardData(DCItems.SWEET_BAG.get(), DCIServerConfig.SWEET_BAG_AMOUNT.get() * 2);
         } else {
             // 否则返回双倍好梦包
-            return new RewardData(ModItems.GOODIE_BAG.get(), CommonConfig.GOODIE_BAG_AMOUNT.get() * 2);
+            return new RewardData(DCItems.GOODIE_BAG.get(), DCIServerConfig.GOODIE_BAG_AMOUNT.get() * 2);
         }
     }
 
@@ -113,19 +113,19 @@ public class RewardCalculator {
      */
     private static RewardData calculateNormalReward(double chance) {
         // 获取配置的美梦包掉落概率
-        double dreamChance = CommonConfig.DREAM_BAG_CHANCE.get();
+        double dreamChance = DCIServerConfig.DREAM_BAG_CHANCE.get();
         // 获取配置的甜梦包掉落概率
-        double sweetChance = CommonConfig.SWEET_BAG_CHANCE.get();
+        double sweetChance = DCIServerConfig.SWEET_BAG_CHANCE.get();
 
         // 如果随机数落在美梦包区间，返回基础数量的美梦包
         if (chance < dreamChance) {
-            return new RewardData(ModItems.DREAM_BAG.get(), CommonConfig.DREAM_BAG_AMOUNT.get());
+            return new RewardData(DCItems.DREAM_BAG.get(), DCIServerConfig.DREAM_BAG_AMOUNT.get());
         } else if (chance < dreamChance + sweetChance) {
             // 如果随机数落在甜梦包区间，返回基础数量的甜梦包
-            return new RewardData(ModItems.SWEET_BAG.get(), CommonConfig.SWEET_BAG_AMOUNT.get());
+            return new RewardData(DCItems.SWEET_BAG.get(), DCIServerConfig.SWEET_BAG_AMOUNT.get());
         } else {
             // 否则返回基础数量的好梦包
-            return new RewardData(ModItems.GOODIE_BAG.get(), CommonConfig.GOODIE_BAG_AMOUNT.get());
+            return new RewardData(DCItems.GOODIE_BAG.get(), DCIServerConfig.GOODIE_BAG_AMOUNT.get());
         }
     }
 }
