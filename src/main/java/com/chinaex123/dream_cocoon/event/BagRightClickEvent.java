@@ -89,25 +89,28 @@ public class BagRightClickEvent {
         // 根据包裹类型获取本次开包的物品数量
         int lootAmount = getLootAmount(bagStack.getItem());
 
+        // 潜行右键：一次性拆完所有包裹
+        // 普通右键：只拆一个包裹
+        int bagCount = player.isShiftKeyDown() ? bagStack.getCount() : 1;
+
         // 循环发放指定数量的奖励物品
-        for (int i = 0; i < lootAmount; i++) {
-            // 按权重随机选择一个掉落项
-            LootConfigLoader.LootEntry selectedEntry = selectWeightedEntry(lootList);
+        for (int bag = 0; bag < bagCount; bag++) {
+            for (int i = 0; i < lootAmount; i++) {
+                LootConfigLoader.LootEntry selectedEntry = selectWeightedEntry(lootList);
 
-            if (selectedEntry != null) {
-                // 解析掉落项为实际的物品堆叠（支持组件）
-                ItemStack rewardStack = parseItemStack(selectedEntry, level.registryAccess());
+                if (selectedEntry != null) {
+                    ItemStack rewardStack = parseItemStack(selectedEntry, level.registryAccess());
 
-                // 将奖励物品添加到玩家背包
-                if (!rewardStack.isEmpty()) {
-                    player.getInventory().add(rewardStack);
+                    if (!rewardStack.isEmpty()) {
+                        player.getInventory().add(rewardStack);
+                    }
                 }
             }
         }
 
-        // 非创造模式下消耗一个包裹物品
+        // 非创造模式下消耗包裹物品
         if (!player.isCreative()) {
-            bagStack.shrink(1);
+            bagStack.shrink(bagCount);
         }
 
         // 播放开包音效
