@@ -60,8 +60,8 @@ public class RewardCalculator {
      * @return 计算后的随机奖励数据对象
      */
     private static RewardData calculateRandomReward(boolean qualityBoosted) {
-        // 生成 0 到 99 之间的随机整数用于概率判定
-        int chance = ThreadLocalRandom.current().nextInt(100);
+        // 生成 0.0 到 1.0 之间的随机小数用于概率判定
+        double chance = ThreadLocalRandom.current().nextDouble();
 
         // 根据品质状态选择对应的奖励计算分支
         if (qualityBoosted) {
@@ -82,11 +82,11 @@ public class RewardCalculator {
      * @param chance 0-99 的随机数，用于概率判定
      * @return 包含高品质奖励物品和双倍数量的 RewardData 对象
      */
-    private static RewardData calculateBoostedReward(int chance) {
+    private static RewardData calculateBoostedReward(double chance) {
         // 获取配置的美梦包掉落概率
-        int dreamChance = CommonConfig.BOOSTED_DREAM_BAG_CHANCE.get();
+        double dreamChance = CommonConfig.BOOSTED_DREAM_BAG_CHANCE.get();
         // 获取配置的甜梦包掉落概率
-        int sweetChance = CommonConfig.BOOSTED_SWEET_BAG_CHANCE.get();
+        double sweetChance = CommonConfig.BOOSTED_SWEET_BAG_CHANCE.get();
 
         // 如果随机数落在美梦包区间，返回双倍美梦包
         if (chance < dreamChance) {
@@ -111,11 +111,11 @@ public class RewardCalculator {
      * @param chance 0-99 的随机数，用于概率判定
      * @return 包含基础奖励物品和数量的 RewardData 对象
      */
-    private static RewardData calculateNormalReward(int chance) {
+    private static RewardData calculateNormalReward(double chance) {
         // 获取配置的美梦包掉落概率
-        int dreamChance = CommonConfig.DREAM_BAG_CHANCE.get();
+        double dreamChance = CommonConfig.DREAM_BAG_CHANCE.get();
         // 获取配置的甜梦包掉落概率
-        int sweetChance = CommonConfig.SWEET_BAG_CHANCE.get();
+        double sweetChance = CommonConfig.SWEET_BAG_CHANCE.get();
 
         // 如果随机数落在美梦包区间，返回基础数量的美梦包
         if (chance < dreamChance) {
