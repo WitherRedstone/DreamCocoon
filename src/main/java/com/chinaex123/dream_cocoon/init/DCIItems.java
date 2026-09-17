@@ -7,7 +7,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-public interface ModItems {
+public interface DCIItems {
     DeferredRegister.Items ITEMS_REGISTER = DeferredRegister.createItems(DreamCocoon.MOD_ID);
 
     /** 好梦包 */

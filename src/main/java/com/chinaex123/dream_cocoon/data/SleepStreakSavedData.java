@@ -31,6 +31,12 @@ public class SleepStreakSavedData extends SavedData {
         private int consecutiveDays = 0;
         // 上一次睡觉所在的世界天数，-1 表示从未睡过觉
         private long lastSleepDay = -1;
+        // 引用外部类实例，用于触发 SavedData 的 setDirty()
+        private final SleepStreakSavedData parent;
+
+        public PlayerSleepData(SleepStreakSavedData parent) {
+            this.parent = parent;
+        }
 
         /**
          * 获取当前连续睡觉天数
@@ -110,6 +116,7 @@ public class SleepStreakSavedData extends SavedData {
          * 注意：此方法由 SavedData 框架自动实现，此处为空占位
          */
         private void setDirty() {
+            parent.setDirty();
         }
     }
 
@@ -141,10 +148,8 @@ public class SleepStreakSavedData extends SavedData {
                 CompoundTag playerTag = playersTag.getCompound(key);
 
                 // 创建玩家睡觉数据对象
-                PlayerSleepData playerData = new PlayerSleepData();
-                // 从 NBT 中读取连续睡觉天数
+                PlayerSleepData playerData = new PlayerSleepData(data);
                 playerData.consecutiveDays = playerTag.getInt("consecutive_days");
-                // 从 NBT 中读取上次睡觉的世界天数
                 playerData.lastSleepDay = playerTag.getLong("last_sleep_day");
 
                 // 将解析后的数据存入映射表
@@ -218,7 +223,7 @@ public class SleepStreakSavedData extends SavedData {
      */
     public PlayerSleepData getPlayerData(UUID playerId) {
         // 尝试从映射表获取数据，若为空则通过 lambda 表达式创建新实例并存入
-        return playerData.computeIfAbsent(playerId, k -> new PlayerSleepData());
+        return playerData.computeIfAbsent(playerId, k -> new PlayerSleepData(this));
     }
 
     /**

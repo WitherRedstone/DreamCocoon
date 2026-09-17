@@ -1,7 +1,7 @@
 package com.chinaex123.dream_cocoon.event;
 
 import com.chinaex123.dream_cocoon.DreamCocoon;
-import com.chinaex123.dream_cocoon.config.CommonConfig;
+import com.chinaex123.dream_cocoon.config.DCIServerConfig;
 import com.chinaex123.dream_cocoon.data.SleepStreakSavedData;
 import com.chinaex123.dream_cocoon.event.reward.RewardCalculator;
 import com.chinaex123.dream_cocoon.event.tracker.SleepStreakTracker;
@@ -42,18 +42,16 @@ public class PlayerWakeEvent {
         // 获取服务端世界层级
         ServerLevel level = (ServerLevel) player.level();
 
-        // 获取当前世界天数和当天时刻
-        long gameTime = level.getGameTime();
-        long currentDay = gameTime / 24000;
-        long dayTime = gameTime % 24000;
+        // 获取当前游戏内时间和世界天数
+        // getDayTime() 反映实际游戏内时间，受睡觉跳夜和 /time set 影响
+        long dayTime = level.getDayTime();
+        long currentDay = dayTime / 24000;
+        long timeOfDay = dayTime % 24000;
 
         // 判断是否成功跳过夜晚：
-        // 1. 玩家在夜晚入睡（不是白天午睡）
-        // 2. 醒来时是清晨（表示夜晚被成功跳过）
-        // 清晨定义为游戏刻 0-1000（日出时段）
-        boolean nightWasSkipped = dayTime < 1000 && wasSleepingAtNight(player);
-
-        if (!nightWasSkipped) {
+        // 醒来时是清晨（游戏内时刻 0-1000，即日出时段）
+        // 如果玩家只是中途下床而未跳过夜晚，时间不会变成清晨
+        if (timeOfDay >= 1000) {
             return;
         }
 
@@ -85,21 +83,7 @@ public class PlayerWakeEvent {
         sendStreakMessage(player, currentStreak);
     }
 
-    /**
-     * 判断玩家是否在夜晚入睡
-     * <p>
-     * 通过检查玩家的睡眠计时器来判断是否在夜晚开始睡觉
-     * 玩家入睡时会设置 sleepTimer，醒来时会重置为 0
-     *
-     * @param player 玩家对象
-     * @return 是否在夜晚入睡
-     */
-    private static boolean wasSleepingAtNight(Player player) {
-        // 获取玩家的睡眠计时器（tickCount）
-        // 当玩家在床上时，这个值会被设置
-        // 如果值大于0，说明玩家刚才确实在床上睡觉
-        return player.getSleepTimer() > 0;
-    }
+
 
     /**
      * 监听世界刻事件，定期检查并重置玩家的连续睡觉天数
@@ -164,7 +148,7 @@ public class PlayerWakeEvent {
      */
     private static void sendStreakMessage(Player player, int currentStreak) {
         // 获取配置的品质提升阈值
-        int qualityBoostThreshold = CommonConfig.QUALITY_BOOST_THRESHOLD.get();
+        int qualityBoostThreshold = DCIServerConfig.QUALITY_BOOST_THRESHOLD.get();
         // 判断当前连续天数是否达到品质提升条件
         boolean isQualityBoosted = currentStreak >= qualityBoostThreshold;
 

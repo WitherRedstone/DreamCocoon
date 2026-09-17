@@ -2,9 +2,7 @@ package com.chinaex123.dream_cocoon.config;
 
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-import java.util.List;
-
-public class CommonConfig {
+public class DCIServerConfig {
 
     public static final ModConfigSpec SPEC;
 
@@ -48,6 +46,7 @@ public class CommonConfig {
                 .comment("好梦包开出物品的数量")
                 .comment("Number of items obtained from the Goodie Bag bundle")
                 .defineInRange("goodieBagLootAmount", 1, 1, Integer.MAX_VALUE);
+        builder.pop();
 
         builder.comment("甜梦包").push("Sweet Bag");
         SWEET_BAG_CHANCE = builder
@@ -66,6 +65,7 @@ public class CommonConfig {
                 .comment("甜梦包开出物品的数量")
                 .comment("Number of items obtained from the Sweet Bag bundle")
                 .defineInRange("sweetBagLootAmount", 1, 1, Integer.MAX_VALUE);
+        builder.pop();
 
         builder.comment("美梦包").push("Dream Bag");
         DREAM_BAG_CHANCE = builder

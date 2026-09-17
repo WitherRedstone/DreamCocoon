@@ -1,9 +1,9 @@
 package com.chinaex123.dream_cocoon.event;
 
 import com.chinaex123.dream_cocoon.DreamCocoon;
-import com.chinaex123.dream_cocoon.config.CommonConfig;
+import com.chinaex123.dream_cocoon.config.DCIServerConfig;
 import com.chinaex123.dream_cocoon.config.LootConfigLoader;
-import com.chinaex123.dream_cocoon.init.ModItems;
+import com.chinaex123.dream_cocoon.init.DCIItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -46,11 +46,11 @@ public class BagRightClickEvent {
         ItemStack stack = event.getItemStack();
         Item item = stack.getItem();
 
-        if (item == ModItems.DREAM_BAG.get()) {
+        if (item == DCIItems.DREAM_BAG.get()) {
             handleBagUse(event, "dream_bag", stack);
-        } else if (item == ModItems.SWEET_BAG.get()) {
+        } else if (item == DCIItems.SWEET_BAG.get()) {
             handleBagUse(event, "sweet_bag", stack);
-        } else if (item == ModItems.GOODIE_BAG.get()) {
+        } else if (item == DCIItems.GOODIE_BAG.get()) {
             handleBagUse(event, "goodie_bag", stack);
         }
     }
@@ -240,14 +240,14 @@ public class BagRightClickEvent {
      */
     private static int getLootAmount(Item bagItem) {
         // 美梦包的奖励数量
-        if (bagItem == ModItems.DREAM_BAG.get()) {
-            return CommonConfig.DREAM_BAG_LOOT_AMOUNT.get();
-        } else if (bagItem == ModItems.SWEET_BAG.get()) {
+        if (bagItem == DCIItems.DREAM_BAG.get()) {
+            return DCIServerConfig.DREAM_BAG_LOOT_AMOUNT.get();
+        } else if (bagItem == DCIItems.SWEET_BAG.get()) {
             // 甜梦包的奖励数量
-            return CommonConfig.SWEET_BAG_LOOT_AMOUNT.get();
-        } else if (bagItem == ModItems.GOODIE_BAG.get()) {
+            return DCIServerConfig.SWEET_BAG_LOOT_AMOUNT.get();
+        } else if (bagItem == DCIItems.GOODIE_BAG.get()) {
             // 好梦包的奖励数量
-            return CommonConfig.GOODIE_BAG_LOOT_AMOUNT.get();
+            return DCIServerConfig.GOODIE_BAG_LOOT_AMOUNT.get();
         }
         // 未知类型默认返回 1
         return 1;

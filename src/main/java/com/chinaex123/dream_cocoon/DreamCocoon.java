@@ -1,9 +1,9 @@
 package com.chinaex123.dream_cocoon;
 
-import com.chinaex123.dream_cocoon.config.CommonConfig;
+import com.chinaex123.dream_cocoon.config.DCIServerConfig;
 import com.chinaex123.dream_cocoon.config.LootConfigLoader;
-import com.chinaex123.dream_cocoon.init.ModCreativeTabs;
-import com.chinaex123.dream_cocoon.init.ModItems;
+import com.chinaex123.dream_cocoon.init.DCICreativeTabs;
+import com.chinaex123.dream_cocoon.init.DCIItems;
 import com.mojang.logging.LogUtils;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
@@ -19,10 +19,10 @@ public class DreamCocoon {
 
     public DreamCocoon(IEventBus modEventBus, ModContainer modContainer) {
 
-        ModItems.register(modEventBus);
-        ModCreativeTabs.register(modEventBus);
+        DCIItems.register(modEventBus);
+        DCICreativeTabs.register(modEventBus);
 
-        modContainer.registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, DCIServerConfig.SPEC);
         LootConfigLoader.loadLootConfig(FMLPaths.CONFIGDIR.get());
     }
 }
